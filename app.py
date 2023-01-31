@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib as mpl
 import seaborn as sns
-import plotly
+# import plotly
 import sklearn
 import numpy as np
 

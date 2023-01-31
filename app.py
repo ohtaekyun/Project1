@@ -21,7 +21,10 @@ def main():
     (" ")
 
     
-    st.button('홈으로', '월세 검색', '건의사항')
+    st.button('홈으로')
+    st.button('다음페이지')
+    st.button('건의사항')
+    
     
     submenu = st.sidebar.title('시세 검색')
 

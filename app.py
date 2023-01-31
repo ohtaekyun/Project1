@@ -11,7 +11,7 @@ def main():
     st.title("pandas 버전: " + str(pd.__version__))
     st.title("matplotlib 버전: " + str(mpl.__version__))
     st.title("seaborn 버전: " + str(sns.__version__))
-    st.title("plotly 버전: " + str(plotly.__version__))
+    # st.title("plotly 버전: " + str(plotly.__version__))
     st.title("sklearn 버전: " + str(sklearn.__version__))
     st.title("numpy 버전: " + str(np.__version__))
 

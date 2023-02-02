@@ -7,11 +7,10 @@
 - 팀명: 
 - 사용언어: Python
 - 사용툴: Visual Studio
-- 라이브러리: pandas(1.5.0 ver), numpy(2.31 ver)
-- 내용:
+- 라이브러리: pandas(1.4.4 ver), streamlit(1.17.0 ver), numpy(1.21.5 ver)
+- 내용: 서울의 월세와 전세를 편리하게 볼 수 있는 페이지를 python과 streamlit을 통해 구성하였습니다.
 
-
-- 시연 영상: [Google예시](https://google.com, "google link")
+- 시연 영상: [Google예시](https://youtube.com, "google link")
 
 
 

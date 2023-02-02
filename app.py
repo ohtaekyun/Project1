@@ -21,10 +21,13 @@ selected3 = option_menu(None, [":집:Home", ":렌즈가_오른쪽_위에_있는_
 if selected3 == ":집:Home":
     data = pd.read_csv('data/bds_data.csv', encoding='cp949')
     st.subheader('실거래 현황')
-    data2 = data[['SGG_NM', 'BJDONG_NM', 'RENT_GBN', 'RENT_AREA', 'RENT_GTN', 'RENT_FEE']]
-    data2.columns = ['지역구', '행정동', '구분', '면적', '보증금', '월세']
-    # data2.index = [1:]
+    data2 = data[['SGG_NM', 'BJDONG_NM', 'RENT_GBN', 'RENT_AREA', 'RENT_GTN', 'RENT_FEE', 'CNTRCT_DE', 'BLDG_NM']]
+    data2.columns = ['지역구', '행정동', '구분', '면적(m^2)', '보증금', '월세', '계약일', '건물명']
+    data2.index = data2.index + 1
     st.write(data2.head(1000))
+    (" ")
+    (" ")
+    (" ")
     col1, col2 = st.columns(2)
     with col1:
         st.subheader('월세 실거래수 지역 순위')

@@ -13,36 +13,34 @@ def run_search():
     gu = data['SGG_NM'].unique()
     
     # 해당 구 선택
-    gu_select = st.sidebar.selectbox('구', gu)
+    gu_select = st.sidebar.selectbox('지역구', gu)
 
     # 구에 해당하는 동 선택
     dong = data['BJDONG_NM'][data['SGG_NM']== gu_select].unique()
-    dong_select = st.sidebar.selectbox('동', dong)
+    dong_select = st.sidebar.selectbox('법정동', dong)
 
     # 전세 / 월세 선택
-    rent_type = data['RENT_GBN'].unique()
-    rent_type = np.append(rent_type, '모두')
-    type_select = st.sidebar.selectbox('전세/월세', rent_type)
+    # rent_type = data['RENT_GBN'].unique()
+    rent_type = ['선택', '월세', '전세']
+    # rent_type = np.append(rent_type, '모두')
+    type_select = st.sidebar.selectbox('전세/월세 구분', rent_type)
     
     # 보증금 선택 슬라이더
-    st.sidebar.write("보증금(만단위)")
-    rent_gtn_list = data['RENT_GTN'].values.tolist()
-    col_gtn1, col_gtn2, col_gtn3 = st.sidebar.columns(3)
-    with col_gtn1:
-        min_gtn = int(st.text_input("최소", value=0, label_visibility="collapsed"))
-    with col_gtn2:
-        pass
-    with col_gtn3:
-        max_gtn = int(st.text_input("최대", value=1100000, label_visibility="collapsed"))
-    if min_gtn > max_gtn:
-        st.sidebar.error("최대가 최소보다 크거나 같게 설정하시오.")
-    try:
-        rent_gtn_select = st.sidebar.select_slider('보증금(만단위)', 
-                                                    options=np.arange(min(rent_gtn_list), max(rent_gtn_list)+1), 
-                                                    value=(min_gtn, max_gtn), 
-                                                    label_visibility="collapsed")
-    except:
-        st.sidebar.error("범위 안 숫자를 입력하시오.")
+    # st.sidebar.write("보증금(만원)")
+    # rent_gtn_list = data['RENT_GTN'].values.tolist()
+    # st.sidebar.text_input("최소", value=0, label_visibility="visible") 
+    # st.sidebar.text_input("최대", value=1000)
+    
+    
+    # if min_gtn > max_gtn:
+    #     st.sidebar.error("최대가 최소보다 크거나 같게 설정하시오.")
+    # try:
+    #     rent_gtn_select = st.sidebar.select_slider('보증금(만단위)', 
+    #                                                 options=np.arange(min(rent_gtn_list), max(rent_gtn_list)+1), 
+    #                                                 value=(min_gtn, max_gtn), 
+    #                                                 label_visibility="collapsed")
+    # except:
+    #     st.sidebar.error("범위 안 숫자를 입력하시오.")
 
     # # 월세 선택 슬라이더
     # rent_fee_list = data['RENT_FEE'].values.tolist()
@@ -52,52 +50,76 @@ def run_search():
     #                                             )
     
     # 월세 선택 슬라이더
-    st.sidebar.write("월세(만단위)")
-    rent_fee_list = data['RENT_FEE'].values.tolist()
-    col_fee1, col_fee2, col_fee3 = st.sidebar.columns(3)
-    with col_fee1:
-        min_fee = int(st.text_input("최소월세", value=0, label_visibility="collapsed"))
-    with col_fee2:
+        
+    
+    if type_select == '월세':  
+        st.sidebar.selectbox('평형', ['5평 이하', '5평 이상 10평 이하', '10평 이상 20평 이하', '20평 이상'])  
+        col11, cols12 = st.sidebar.columns(2)
+        
+        with col11:
+            st.text_input('월세 최소(만원)', value=0)
+            st.text_input('보증금 최소(만원)', value=0)
+        with cols12:
+            st.text_input('월세 최대(만원)', value=100)
+            st.text_input('보증금 최대(만원)', value=2000)  
+    #     min_area = int(st.text_input("최소 면적", value=1, label_visibility="collapsed"))
+    # with col_area2:
+    #     pass
+    # with col_area3:
+    #     max_area = int(st.text_input("최대 면적", value=97, label_visibility="collapsed"))
+
+    elif  type_select == '전세':
+        st.sidebar.selectbox('평형', ['10평 이하', '10평 이상 20평 이하', '20평 이상 30평 이하', '30평 이상'])  
+        col11, cols12 = st.sidebar.columns(2)
+        with col11:
+            st.text_input('보증금 최소(만원)', value=0)
+        with cols12:
+            st.text_input('보증금 최대(만원)', value=2000)
+
+    else:
         pass
-    with col_fee3:
-        max_fee = int(st.text_input("최대월세", value=4000, label_visibility="collapsed"))
-    if min_fee > max_fee:
-        st.sidebar.error("최대가 최소보다 크거나 같게 설정하시오.")
-    try:
-        rent_fee_select = st.sidebar.select_slider('월세(만단위)',
-                                                    options=np.arange(0, max(rent_fee_list)+1),
-                                                    value=(min_fee, max_fee), label_visibility="collapsed")
-    except:
-        st.sidebar.error("범위 안 숫자를 입력하시오.")
+        
+
+    # st.sidebar.write("월세(만원)")
+    # rent_fee_list = data['RENT_FEE'].values.tolist()
+    
+    # if min_fee > max_fee:
+    #     st.sidebar.error("최대가 최소보다 크거나 같게 설정하시오.")
+    # try:
+    #     rent_fee_select = st.sidebar.select_slider('월세(만단위)',
+    #                                                 options=np.arange(0, max(rent_fee_list)+1),
+    #                                                 value=(min_fee, max_fee), label_visibility="collapsed")
+    # except:
+    #     st.sidebar.error("범위 안 숫자를 입력하시오.")
     
     # 면적(평)
-    st.sidebar.write("임대면적(평)")
-    rent_area_list = data['RENT_AREA'].values.tolist()
-    col_area1, col_area2, col_area3 = st.sidebar.columns(3)
-    with col_area1:
-        min_area = int(st.text_input("최소 면적", value=1, label_visibility="collapsed"))
-    with col_area2:
-        pass
-    with col_area3:
-        max_area = int(st.text_input("최대 면적", value=97, label_visibility="collapsed"))
-    if min_area > max_area:
-        st.sidebar.error("최대가 최소보다 크거나 같게 설정하시오.")
-    min_rent_area = min(rent_area_list)
-    max_rent_area = max(rent_area_list)
+    # st.sidebar.write("임대면적(평)")
+    # rent_area_list = data['RENT_AREA'].values.tolist()
+    # col_area1, col_area2, col_area3 = st.sidebar.columns(3)
+    # with col_area1:
+    #     min_area = int(st.text_input("최소 면적", value=1, label_visibility="collapsed"))
+    # with col_area2:
+    #     pass
+    # with col_area3:
+    #     max_area = int(st.text_input("최대 면적", value=97, label_visibility="collapsed"))
+    # if min_area > max_area:
+    #     st.sidebar.error("최대가 최소보다 크거나 같게 설정하시오.")
+    # min_rent_area = min(rent_area_list)
+    # max_rent_area = max(rent_area_list)
 
-    # 제곱미터 -> 평 변환
-    min_pyeong = math.floor(min_rent_area / 3.3058)
-    max_pyeong = math.ceil(max_rent_area / 3.3058)
+    # # 제곱미터 -> 평 변환
+    # min_pyeong = math.floor(min_rent_area / 3.3058)
+    # max_pyeong = math.ceil(max_rent_area / 3.3058)
 
-    # 면적 선택 슬라이더
-    try:
-        rent_area_select = st.sidebar.select_slider('면적(평)',
-                                                    options = np.arange(min_pyeong, max_pyeong+1),
-                                                    value = (min_area, max_area), 
-                                                    label_visibility="collapsed"
-                                                    )
-    except:
-        st.sidebar.error("범위 안 숫자를 입력하시오.")
+    # # 면적 선택 슬라이더
+    # try:
+    #     rent_area_select = st.sidebar.select_slider('면적(평)',
+    #                                                 options = np.arange(min_pyeong, max_pyeong+1),
+    #                                                 value = (min_area, max_area), 
+    #                                                 label_visibility="collapsed"
+    #                                                 )
+    # except:
+    #     st.sidebar.error("범위 안 숫자를 입력하시오.")
 
     # 버튼
     if st.sidebar.button('조회'):

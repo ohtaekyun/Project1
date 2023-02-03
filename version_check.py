@@ -26,27 +26,28 @@ data = pd.read_csv('data/bds_data.csv', encoding='cp949')
 # data5['ad'] = address1
 # st.write(data5)
 
+st.write(data)
+
+cols1 = ['SGG_NM', 'BJDONG_NM', 'RENT_GBN']
+st.write(data[cols1])
 
 
 data_m = data[data['RENT_GBN']=='월세']
-# data_apart = data_m[data_m['HOUSE_GBN_NM']=='아파트']
+
+# data_addr = data_m[cols]
+# st.write(data_addr)     
+# st.write(type(data_addr))
+# st.write(data_addr.shape)
 
 cols = ['SGG_NM', 'BJDONG_NM']   
-st.write(cols)     
-st.write(type(cols))
-data_addr = data_m[cols]
-st.write(data_addr)     
-st.write(type(data_addr))
-st.write(data_addr.shape)
-
-st.write(data)
-st.write(data.shape)
-
 data_addr = data_m[cols].value_counts().reset_index()
-st.write(data_addr)
 data_addr.columns = ['지역구', '행정동', '거래량']
+data_addr.index = data_addr.index+1
 st.write(data_addr)
-st.write(type(data_addr))
+# st.write(type(data_addr))
+
+
+
 # data_addr = data_addr.reset_index(drop=True)
 # data_addr.index = data_addr.index+1        
 # st.write(data_addr.head(10))
